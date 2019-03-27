@@ -1,0 +1,178 @@
+{
+  "dcs": [
+    {
+      "id": 1,
+      "name": "shanghai",
+      "rocks": [
+        {
+          "id": 0,
+          "name": "Rock00",
+          "stores": [
+            {
+              "id": 0,
+              "labels": [
+                "node0",
+                "world"
+              ]
+            },
+            {
+              "id": 1,
+              "labels": [
+                "node1",
+                "world"
+              ]
+            },
+            {
+              "id": 2,
+              "labels": [
+                "node2",
+                "world"
+              ]
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Rock02",
+          "stores": [
+            {
+              "id": 3,
+              "labels": [
+                "node0",
+                "world"
+              ]
+            },
+            {
+              "id": 4,
+              "labels": [
+                "node1",
+                "world"
+              ]
+            },
+            {
+              "id": 5,
+              "labels": [
+                "node2",
+                "world"
+              ]
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Rock04",
+          "stores": [
+            {
+              "id": 6,
+              "labels": [
+                "node0",
+                "world"
+              ]
+            },
+            {
+              "id": 7,
+              "labels": [
+                "node1",
+                "world"
+              ]
+            },
+            {
+              "id": 8,
+              "labels": [
+                "node2",
+                "world"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "beijin",
+      "rocks": [
+        {
+          "id": 1,
+          "name": "Rock01",
+          "stores": [
+            {
+              "id": 9,
+              "labels": [
+                "node0",
+                "world"
+              ]
+            },
+            {
+              "id": 10,
+              "labels": [
+                "node1",
+                "world"
+              ]
+            },
+            {
+              "id": 11,
+              "labels": [
+                "node2",
+                "world"
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Rock03",
+          "stores": [
+            {
+              "id": 12,
+              "labels": [
+                "node0",
+                "world"
+              ]
+            },
+            {
+              "id": 13,
+              "labels": [
+                "node1",
+                "world"
+              ]
+            },
+            {
+              "id": 14,
+              "labels": [
+                "node2",
+                "world"
+              ]
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Rock05",
+          "stores": [
+            {
+              "id": 15,
+              "labels": [
+                "node0",
+                "world"
+              ]
+            },
+            {
+              "id": 16,
+              "labels": [
+                "node1",
+                "world"
+              ]
+            },
+            {
+              "id": 17,
+              "labels": [
+                "node2",
+                "world"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
