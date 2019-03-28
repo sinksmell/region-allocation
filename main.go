@@ -53,20 +53,22 @@ type Strategy struct {
 func Check(stores []Store, region Region, strategy Strategy) Region {
 
 	var (
-		nums           = 3   // 节点数量
-		repeat         bool  // 判断节点是否重复
-		nodes          []int // 去重后的节点集合
-		localNode      Store
-		node           Store
-		localRack      *Rack
-		localDc        *DC
-		otherRackNodes []Store // 相同DC 不同Rack的节点
-		otherDcNodes   []Store // 不同DC上的节点
-		err            error
+		//nums           = 3   // 节点数量
+		repeat    bool  // 判断节点是否重复
+		nodes     []int // 去重后的节点集合
+		nodes2    []int // 去除重复Rack之后的节点集合
+		localNode Store
+		//node           Store
+		localRack *Rack
+		//localDc        *DC
+		//otherRackNodes []Store // 相同DC 不同Rack的节点
+		//otherDcNodes   []Store // 不同DC上的节点
+		err error
 	)
 	nodes = make([]int, 0)
-	otherRackNodes = make([]Store, 0)
-	otherDcNodes = make([]Store, 0)
+	nodes2 = make([]int, 0)
+	//otherRackNodes = make([]Store, 0)
+	//otherDcNodes = make([]Store, 0)
 
 	// 1. region还没有被分配 就尝试进行分配
 	if region.Replicas == nil || len(region.Replicas) == 0 {
@@ -76,9 +78,9 @@ func Check(stores []Store, region Region, strategy Strategy) Region {
 	}
 
 	repeat = repeat
-	// 2. region中存在节点重复
+	// 2. region中存在节点重复 对节点进行去重
 	nodes = RemoveReptElem(region.Replicas)
-	if len(nodes) < nums {
+	/*if len(nodes) < nums {
 		// 有重复的元素被删除了
 		// 选取第一个元素作为本地节点
 		nodeId := nodes[0]
@@ -94,14 +96,15 @@ func Check(stores []Store, region Region, strategy Strategy) Region {
 		otherDcNodes = OtherDCNodes(stores, localDc)
 		if len(nodes) == 1 {
 			// 当前只有一个节点
-
 			// 在当期DC下不同Rack上随机选择一个节点
-			node = RandNode(otherRackNodes)
-			nodes = append(nodes, node.ID)
-			// 在不同DC上随机选一个
-			node = RandNode(otherDcNodes)
-			nodes = append(nodes, node.ID)
-			return Region{Replicas: nodes}
+			reg := strategy.ReAllocate1(stores, &localNode)
+			return *reg
+			//node = RandNode(otherRackNodes)
+			//nodes = append(nodes, node.ID)
+			//// 在不同DC上随机选一个
+			//node = RandNode(otherDcNodes)
+			//nodes = append(nodes, node.ID)
+			//return Region{Replicas: nodes}
 
 		} else {
 			// 去重后还有两个2节点
@@ -136,40 +139,45 @@ func Check(stores []Store, region Region, strategy Strategy) Region {
 
 			return Region{Replicas: nodes}
 		}
-	}
+	}*/
 
 	//fmt.Println("Node",nodes)
-	// 3.节点不重复 但rack重复
-	// 清空nodes
-	nodes=make([]int,0)
+	// 3.节点不重复 但rack重复 对rack去重
 	// 选取第一个节点作为本地节点
-	if localNode, err = strategy.FindNode(region.Replicas[0]); err != nil {
+	if localNode, err = strategy.FindNode(nodes[0]); err != nil {
 		// 没找到对应的节点则直接返回
 		goto ERR
 	}
 	// 本地Rack
 	localRack = localNode.Rack
-	// 遍历 store
-	nodes = append(nodes, localNode.ID)
-	for _, nodeId := range region.Replicas {
+	// 遍历 store 根据rack进行去重
+	nodes2 = append(nodes2, localNode.ID)
+	for _, nodeId := range nodes {
 		node, err := strategy.FindNode(nodeId)
 		if err != nil {
 			continue
 		}
-
+		// 将不在同一个Rack的节点加入
 		if node.Rack.ID != localRack.ID {
-			nodes = append(nodes, node.ID)
+			nodes2 = append(nodes2, node.ID)
 		}
 	}
 	// 此时Rack完成了去重
 	// 存留的元素可能有 1 2 3
-	switch len(nodes) {
+	fmt.Println("Store和Rack去重后: ", nodes2)
+	switch len(nodes2) {
 	case 1:
-		region2 := strategy.ReAllocate1(stores, &localNode)
-		return *region2
+		reg := strategy.ReAllocate1(stores, &localNode)
+		region = *reg
+	case 2:
+		reg := strategy.ReAllocate2(stores, nodes2)
+		region = *reg
+	case 3:
+		reg := strategy.ReAllocate3(stores, nodes2)
+		region = *reg
 	}
 
-	return Region{Replicas: nodes}
+	return region
 
 ERR:
 	fmt.Println(err)
@@ -232,6 +240,7 @@ func (stgy *Strategy) TryAllocate(stores []Store) (region *Region) {
 	return
 }
 
+// 在只有一个副本的基础上再次分配
 func (stgy *Strategy) ReAllocate1(stores []Store, localNode *Store) (region *Region) {
 	region = &Region{
 		Replicas: make([]int, 0),
@@ -251,6 +260,106 @@ func (stgy *Strategy) ReAllocate1(stores []Store, localNode *Store) (region *Reg
 	node = RandNode(dcNodes)
 	region.Replicas = append(region.Replicas, node.ID)
 
+	return
+}
+
+// 在有两个副本的情况下再次分配
+func (stgy *Strategy) ReAllocate2(stores []Store, nodes []int) (region *Region) {
+
+	var (
+		localNode      Store
+		localRack      *Rack
+		localDc        *DC
+		otherRackNodes []Store
+		otherDcNodes   []Store
+		node           Store
+	)
+
+	// 本地节点
+	localNode, _ = stgy.FindNode(nodes[0])
+	localRack = localNode.Rack
+	localDc = localRack.Dc
+	// 另外一个节点
+	otherNode, _ := stgy.FindNode(nodes[1])
+
+	// 初始化本地Dc不同Rack的节点
+	otherRackNodes = OtherRackNodes(stores, localRack)
+	// 初始化其他Dc上的节点
+	otherDcNodes = OtherDCNodes(stores, localDc)
+
+	if otherNode.Rack.Dc.ID == localDc.ID {
+		// 两个节点在同一DC下
+		if otherNode.Rack.ID == localRack.ID {
+			// 两个节点在同一Rack下
+			// 选择一个同一DC不同Rack的节点
+			node = RandNode(otherRackNodes)
+			nodes[1] = node.ID
+
+			// 选择一个不同DC的节点
+			node = RandNode(otherDcNodes)
+			nodes = append(nodes, node.ID)
+		} else {
+			// 两个节点在相同DC不同Rack上
+			// 从另外一个DC选一个节点
+			node = RandNode(otherDcNodes)
+			nodes = append(nodes, node.ID)
+		}
+
+	} else {
+		// 两个节点在不同DC下
+		// 在本地DC的不同Rack下选择一个节点添加进去即可
+		node = RandNode(otherRackNodes)
+		nodes = append(nodes, node.ID)
+	}
+
+	return &Region{Replicas: nodes}
+}
+
+// 3个节点的情况下进行再次分配
+func (stgy *Strategy) ReAllocate3(stores []Store, nodes []int) (region *Region) {
+	var (
+		localNode Store
+		localRack *Rack
+		localDc   *DC
+		cnt       int
+		rd        *rand.Rand
+	)
+
+	rd = rand.New(rand.NewSource(time.Now().Unix()))
+
+	// 此时Rack已经不重复了
+	// 如果分布在两个DC那么此时已经满足了,不需要再次分配了
+	// 本地节点
+	localNode, _ = stgy.FindNode(nodes[0])
+	localRack = localNode.Rack
+	localDc = localRack.Dc
+	cnt = 1
+	for _, id := range nodes {
+		node, _ := stgy.FindNode(id)
+		if node.Rack.Dc.ID != localDc.ID {
+			cnt++
+			break
+		}
+	}
+
+	if cnt > 1 {
+		region = &Region{Replicas: nodes}
+		return
+	}
+
+	// 3节点Rack不重复 但是都在同一个Rack下
+	// 随机删除一个节点 重新分配
+	delId:=rd.Intn(len(nodes))
+	nodes2:=make([]int,0)
+	for key, value := range nodes {
+		if key==delId{
+			continue
+		}
+		nodes2=append(nodes2,value)
+	}
+
+	// 转化成两节点分配问题
+	region=stgy.ReAllocate2(stores,nodes2)
 	return
 }
 

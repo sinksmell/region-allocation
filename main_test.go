@@ -126,3 +126,32 @@ func TestCheck5(t *testing.T) {
 	region := Check(stores, Region{Replicas:[]int{0,1,2}}, *strategy)
 	fmt.Println(region)
 }
+
+// 测试含有相同Rack的3副本重新分配，去重后剩下两个节点在同一DC
+func TestCheck6(t *testing.T) {
+	Init()
+	region := Check(stores, Region{Replicas:[]int{0,2,6}}, *strategy)
+	fmt.Println(region)
+}
+
+// 测试含有相同Rack的3副本重新分配，去重后剩下两个节点在不同一DC
+func TestCheck7(t *testing.T) {
+	Init()
+	region := Check(stores, Region{Replicas:[]int{0,2,15}}, *strategy)
+	fmt.Println(region)
+}
+
+// 不含有相同Rack但是都在同一Dc 的3副本重新分配
+func TestCheck8(t *testing.T) {
+	Init()
+	region := Check(stores, Region{Replicas:[]int{0,3,6}}, *strategy)
+	fmt.Println(region)
+}
+
+// 测试合法副本分布
+func TestCheck9(t *testing.T) {
+	Init()
+	region := Check(stores, Region{Replicas:[]int{0,6,15}}, *strategy)
+	fmt.Println(region)
+}
+
