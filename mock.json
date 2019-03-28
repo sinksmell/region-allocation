@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "shanghai",
-      "rocks": [
+      "racks": [
         {
           "id": 0,
           "name": "Rock00",
@@ -90,7 +90,7 @@
     {
       "id": 2,
       "name": "beijin",
-      "rocks": [
+      "racks": [
         {
           "id": 1,
           "name": "Rock01",
