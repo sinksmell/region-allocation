@@ -12,4 +12,8 @@
 ![](https://i.loli.net/2019/03/27/5c9b39218dff1.png)
 
 
-#### Strategy 的设计
+#### 3副本检查及再分配策略
+
+* 流程图
+
+![](https://i.loli.net/2019/03/29/5c9e0b7e22de2.png)
