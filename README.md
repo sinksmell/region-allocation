@@ -2,6 +2,7 @@
 
 [![GoDoc](https://godoc.org/github.com/sinksmell/region-allocation?status.svg)](https://godoc.org/github.com/sinksmell/region-allocation)
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/sinksmell/region-allocation)](https://goreportcard.com/report/github.com/sinksmell/region-allocation)
 
 
 **核心算法**
