@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5a9a383c-2e9d-4fab-b6e2-c2965ce25df6" name="Default Changelist" comment="" />
+    <list default="true" id="5a9a383c-2e9d-4fab-b6e2-c2965ce25df6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/main_test.go" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,10 +55,10 @@
     <session id="1282065882">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.10" value="2" />
-          <entry key="project.open.time.2" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.open.time.2" value="3" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -71,12 +75,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="go" value="5481" />
+          <entry key="go" value="7256" />
+          <entry key="json" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Go" value="5481" />
+          <entry key="Go" value="7256" />
+          <entry key="JSON" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.go.postfix.template.usages.trigger">
@@ -91,8 +97,21 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="82" selection-start-line="82" selection-end-line="82" />
+            <state relative-caret-position="314">
+              <caret line="151" column="5" lean-forward="true" selection-start-line="151" selection-start-column="5" selection-end-line="151" selection-end-column="5" />
+              <folding>
+                <element signature="n#!!block;n#Allocate#0" />
+                <element signature="n#!!block;n#ReAllocate1#0" />
+                <element signature="n#!!block;n#ReAllocate2#0" />
+                <element signature="n#!!block;n#ReAllocate3#0" />
+                <element signature="n#!!block;n#RemoveReptElem#0" />
+                <element signature="n#!!block;n#FindNode#0" />
+                <element signature="n#!!block;n#OtherRackNodes#0" />
+                <element signature="n#!!block;n#OtherDCNodes#0" />
+                <element signature="n#!!block;n#RandNode#0" />
+                <element signature="n#!!block;n#MockData#0" />
+                <element signature="n#!!block;n#PrintStores#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -109,8 +128,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="146" column="15" lean-forward="true" selection-start-line="146" selection-start-column="15" selection-end-line="146" selection-end-column="15" />
+            <state relative-caret-position="68">
+              <caret line="186" column="28" selection-start-line="186" selection-start-column="28" selection-end-line="186" selection-end-column="28" />
               <folding>
                 <element signature="e#14#42#0" expanded="true" />
               </folding>
@@ -121,8 +140,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mock.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2024">
-              <caret line="92" column="12" selection-start-line="92" selection-start-column="12" selection-end-line="92" selection-end-column="12" />
+            <state relative-caret-position="220">
+              <caret line="92" column="16" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="16" />
+              <folding>
+                <element signature="e#75#1673#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -151,8 +173,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/mock.json" />
         <option value="$PROJECT_DIR$/utils/common.go" />
+        <option value="$PROJECT_DIR$/mock.json" />
         <option value="$PROJECT_DIR$/main_test.go" />
         <option value="$PROJECT_DIR$/main.go" />
       </list>
@@ -164,11 +186,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="611" />
-    <option name="y" value="59" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="23" />
     <option name="width" value="1600" />
-    <option name="height" value="827" />
+    <option name="height" value="826" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -184,6 +205,15 @@
             <path>
               <item name="region-allocation" type="b2602c69:ProjectViewProjectNode" />
               <item name="region-allocation" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="region-allocation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="region-allocation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="GOPATH &lt;PingCAP&gt;" type="20ee2d1f:SyntheticLibraryElementNode" />
             </path>
           </expand>
           <select />
@@ -212,20 +242,18 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestCheck8 in github.com/sinksmell/region-allocation">
-    <configuration name="TestCheck4 in github.com/sinksmell/region-allocation" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Go Test.TestCheck9 in github.com/sinksmell/region-allocation">
+    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="PingCAP" />
-      <working_directory value="$PROJECT_DIR$" />
+      <working_directory value="$PROJECT_DIR$/" />
       <go_parameters value="-i" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/main.go" />
       <package value="github.com/sinksmell/region-allocation" />
       <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestCheck4$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestCheck5 in github.com/sinksmell/region-allocation" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCheck10 in github.com/sinksmell/region-allocation" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="PingCAP" />
       <working_directory value="$PROJECT_DIR$" />
       <go_parameters value="-i" />
@@ -234,10 +262,10 @@
       <package value="github.com/sinksmell/region-allocation" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestCheck5$" />
+      <pattern value="^TestCheck10$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestCheck6 in github.com/sinksmell/region-allocation" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCheck3 in github.com/sinksmell/region-allocation" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="PingCAP" />
       <working_directory value="$PROJECT_DIR$" />
       <go_parameters value="-i" />
@@ -246,10 +274,10 @@
       <package value="github.com/sinksmell/region-allocation" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestCheck6$" />
+      <pattern value="^TestCheck3$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestCheck7 in github.com/sinksmell/region-allocation" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCheck9 in github.com/sinksmell/region-allocation" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="PingCAP" />
       <working_directory value="$PROJECT_DIR$" />
       <go_parameters value="-i" />
@@ -258,10 +286,10 @@
       <package value="github.com/sinksmell/region-allocation" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestCheck7$" />
+      <pattern value="^TestCheck9$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestCheck8 in github.com/sinksmell/region-allocation" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestMockData in github.com/sinksmell/region-allocation" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="PingCAP" />
       <working_directory value="$PROJECT_DIR$" />
       <go_parameters value="-i" />
@@ -270,74 +298,75 @@
       <package value="github.com/sinksmell/region-allocation" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestCheck8$" />
+      <pattern value="^TestMockData$" />
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Go Test.TestCheck4 in github.com/sinksmell/region-allocation" />
-      <item itemvalue="Go Test.TestCheck5 in github.com/sinksmell/region-allocation" />
-      <item itemvalue="Go Test.TestCheck6 in github.com/sinksmell/region-allocation" />
-      <item itemvalue="Go Test.TestCheck7 in github.com/sinksmell/region-allocation" />
-      <item itemvalue="Go Test.TestCheck8 in github.com/sinksmell/region-allocation" />
+      <item itemvalue="Go Test.TestMockData in github.com/sinksmell/region-allocation" />
+      <item itemvalue="Go Test.TestCheck3 in github.com/sinksmell/region-allocation" />
+      <item itemvalue="Go Build.go build main.go" />
+      <item itemvalue="Go Test.TestCheck10 in github.com/sinksmell/region-allocation" />
+      <item itemvalue="Go Test.TestCheck9 in github.com/sinksmell/region-allocation" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestCheck8 in github.com/sinksmell/region-allocation" />
-        <item itemvalue="Go Test.TestCheck6 in github.com/sinksmell/region-allocation" />
-        <item itemvalue="Go Test.TestCheck7 in github.com/sinksmell/region-allocation" />
-        <item itemvalue="Go Test.TestCheck5 in github.com/sinksmell/region-allocation" />
-        <item itemvalue="Go Test.TestCheck4 in github.com/sinksmell/region-allocation" />
+        <item itemvalue="Go Test.TestCheck9 in github.com/sinksmell/region-allocation" />
+        <item itemvalue="Go Test.TestCheck10 in github.com/sinksmell/region-allocation" />
+        <item itemvalue="Go Build.go build main.go" />
+        <item itemvalue="Go Test.TestMockData in github.com/sinksmell/region-allocation" />
+        <item itemvalue="Go Test.TestCheck3 in github.com/sinksmell/region-allocation" />
       </list>
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="TestCheck7_in_github_com_sinksmell_region-allocation - 2019.03.28 at 16h 14m 44s.xml">
-      <configuration name="TestCheck7 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCheck10_in_github_com_sinksmell_region-allocation - 2019.03.31 at 15h 29m 39s.xml">
+      <configuration name="TestCheck10 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestCheck6_in_github_com_sinksmell_region-allocation - 2019.03.28 at 16h 14m 47s.xml">
-      <configuration name="TestCheck6 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCheck10_in_github_com_sinksmell_region-allocation - 2019.03.31 at 15h 29m 42s.xml">
+      <configuration name="TestCheck10 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestCheck8_in_github_com_sinksmell_region-allocation - 2019.03.28 at 16h 23m 49s.xml">
-      <configuration name="TestCheck8 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCheck10_in_github_com_sinksmell_region-allocation - 2019.03.31 at 15h 29m 45s.xml">
+      <configuration name="TestCheck10 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestCheck8_in_github_com_sinksmell_region-allocation - 2019.03.28 at 16h 23m 53s.xml">
-      <configuration name="TestCheck8 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCheck10_in_github_com_sinksmell_region-allocation - 2019.03.31 at 15h 29m 48s.xml">
+      <configuration name="TestCheck10 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestCheck8_in_github_com_sinksmell_region-allocation - 2019.03.28 at 16h 30m 33s.xml">
-      <configuration name="TestCheck8 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCheck10_in_github_com_sinksmell_region-allocation - 2019.03.31 at 15h 29m 50s.xml">
+      <configuration name="TestCheck10 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestCheck8_in_github_com_sinksmell_region-allocation - 2019.03.28 at 16h 30m 38s.xml">
-      <configuration name="TestCheck8 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCheck10_in_github_com_sinksmell_region-allocation - 2019.03.31 at 15h 31m 37s.xml">
+      <configuration name="TestCheck10 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestCheck8_in_github_com_sinksmell_region-allocation - 2019.03.28 at 16h 30m 42s.xml">
-      <configuration name="TestCheck8 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCheck10_in_github_com_sinksmell_region-allocation - 2019.03.31 at 15h 31m 45s.xml">
+      <configuration name="TestCheck10 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestCheck8_in_github_com_sinksmell_region-allocation - 2019.03.28 at 16h 30m 46s.xml">
-      <configuration name="TestCheck8 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCheck9_in_github_com_sinksmell_region-allocation - 2019.03.31 at 15h 32m 30s.xml">
+      <configuration name="TestCheck9 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestCheck8_in_github_com_sinksmell_region-allocation - 2019.03.28 at 16h 30m 51s.xml">
-      <configuration name="TestCheck8 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCheck9_in_github_com_sinksmell_region-allocation - 2019.03.31 at 15h 33m 05s.xml">
+      <configuration name="TestCheck9 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestCheck8_in_github_com_sinksmell_region-allocation - 2019.03.28 at 16h 30m 55s.xml">
-      <configuration name="TestCheck8 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestCheck9_in_github_com_sinksmell_region-allocation - 2019.03.31 at 15h 35m 39s.xml">
+      <configuration name="TestCheck9 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="611" y="59" width="1600" height="827" extended-state="0" />
+    <frame x="0" y="23" width="1600" height="824" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09366925" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17700258" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32823366" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.34771886" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32799014" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3941094" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.37290502" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.66993004" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -377,15 +406,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mock.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2024">
-          <caret line="92" column="12" selection-start-line="92" selection-start-column="12" selection-end-line="92" selection-end-column="12" />
+        <state relative-caret-position="220">
+          <caret line="92" column="16" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="16" />
+          <folding>
+            <element signature="e#75#1673#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="146" column="15" lean-forward="true" selection-start-line="146" selection-start-column="15" selection-end-line="146" selection-end-column="15" />
+        <state relative-caret-position="68">
+          <caret line="186" column="28" selection-start-line="186" selection-start-column="28" selection-end-line="186" selection-end-column="28" />
           <folding>
             <element signature="e#14#42#0" expanded="true" />
           </folding>
@@ -394,8 +426,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="82" selection-start-line="82" selection-end-line="82" />
+        <state relative-caret-position="314">
+          <caret line="151" column="5" lean-forward="true" selection-start-line="151" selection-start-column="5" selection-end-line="151" selection-end-column="5" />
+          <folding>
+            <element signature="n#!!block;n#Allocate#0" />
+            <element signature="n#!!block;n#ReAllocate1#0" />
+            <element signature="n#!!block;n#ReAllocate2#0" />
+            <element signature="n#!!block;n#ReAllocate3#0" />
+            <element signature="n#!!block;n#RemoveReptElem#0" />
+            <element signature="n#!!block;n#FindNode#0" />
+            <element signature="n#!!block;n#OtherRackNodes#0" />
+            <element signature="n#!!block;n#OtherDCNodes#0" />
+            <element signature="n#!!block;n#RandNode#0" />
+            <element signature="n#!!block;n#MockData#0" />
+            <element signature="n#!!block;n#PrintStores#0" />
+          </folding>
         </state>
       </provider>
     </entry>

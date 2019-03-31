@@ -42,11 +42,72 @@ type Region struct {
 	Replicas []int
 }
 
-//
+// 策略调整器
 type Strategy struct {
-	//TODO
-	//Dcs     []DC
 	NodeMap map[int]Store // 为了方便地根据StoreId 查询对应的Store对象
+}
+
+func main() {
+
+	var (
+		stores []Store    // 存放所有可用节点
+		data   *MockJson  // json文件对应的数据
+		stgy   *Strategy  // 策略调整器
+		region Region     // 副本分布结果
+		rd     *rand.Rand // 随机数发生器
+		arr    []int      // 存放随机生成的副本分布
+		err    error
+	)
+	// 1.初始化测试数据
+	// 初始化 随机数发生器
+	rd = rand.New(rand.NewSource(time.Now().UnixNano()))
+	arr = make([]int, 3)
+
+	// 初始化DC Rack Store分配数据
+	if data, err = MockData(); err != nil {
+		goto ERR
+	}
+	// 初始化策略对象
+	stgy = &Strategy{NodeMap: make(map[int]Store)}
+	// 初始化节点集合
+	stores = make([]Store, 0)
+	for i := range data.Dcs {
+		dc := data.Dcs[i]
+		for j := range dc.Rocks {
+			rock := dc.Rocks[j]
+			for k := range rock.Stores {
+				store := rock.Stores[k]
+				stores = append(stores, store)
+				stgy.NodeMap[store.ID] = store
+			}
+		}
+	}
+
+	// 打印系统节点分布图
+	fmt.Println("Store分布:")
+	PrintStores(data)
+
+	// 2. 从0(副本个数为0)开始进行副本分配
+	region = Check(stores, region, *stgy)
+	fmt.Println("从0开始分配: ", region)
+	stgy.PrintRegion(&region)
+	fmt.Println("")
+	// 3.随机生成一个副本分配情况进行检查
+	for i := 0; i < len(arr); i++ {
+		arr[i] = rd.Intn(len(stores))
+	}
+
+	region = Region{Replicas: arr}
+	fmt.Println("随机生成的待检测副本分布: ", region)
+	stgy.PrintRegion(&region)
+	region = Check(stores, region, *stgy)
+	fmt.Println("调整后的副本分布: ", region)
+	stgy.PrintRegion(&region)
+	return
+
+ERR:
+	fmt.Println(err)
+
 }
 
 // 检查是否满足策略约束 不满足就重新分配
@@ -54,57 +115,41 @@ func Check(stores []Store, region Region, strategy Strategy) Region {
 
 	var (
 		//nums           = 3   // 节点数量
-		repeat    bool  // 判断节点是否重复
 		nodes     []int // 去重后的节点集合
 		nodes2    []int // 去除重复Rack之后的节点集合
 		localNode Store
-		//node           Store
-		localRack *Rack
-		//localDc        *DC
-		//otherRackNodes []Store // 相同DC 不同Rack的节点
-		//otherDcNodes   []Store // 不同DC上的节点
-		err error
+		//localRack *Rack
+		err      error
 	)
 	nodes = make([]int, 0)
 	nodes2 = make([]int, 0)
-	//otherRackNodes = make([]Store, 0)
-	//otherDcNodes = make([]Store, 0)
-
 	// 1. region还没有被分配 就尝试进行分配
 	if region.Replicas == nil || len(region.Replicas) == 0 {
 		//	return
 		reg := strategy.Allocate(stores)
 		return *reg
 	}
-
-	repeat = repeat
 	// 2. region中存在节点重复 对节点进行去重
-	nodes = RemoveReptElem(region.Replicas)
+	nodes = strategy.RemoveReptElem(region.Replicas)
 
-	//fmt.Println("Node",nodes)
 	// 3.节点不重复 但rack重复 对rack去重
+	nodes2=strategy.RemoveReptRack(nodes)
+
+	// 打印 去重之后的信息 查看是否正确去重
+/*	fmt.Println("Store和Rack去重后: ", nodes2)
+	for _, value := range nodes2 {
+		node, _ := strategy.FindNode(value)
+		fmt.Println(node.Rack.ID)
+	}*/
+
 	// 选取第一个节点作为本地节点
-	if localNode, err = strategy.FindNode(nodes[0]); err != nil {
+	if localNode, err = strategy.FindNode(nodes2[0]); err != nil {
 		// 没找到对应的节点则直接返回
 		goto ERR
 	}
-	// 本地Rack
-	localRack = localNode.Rack
-	// 遍历 store 根据rack进行去重
-	nodes2 = append(nodes2, localNode.ID)
-	for _, nodeId := range nodes {
-		node, err := strategy.FindNode(nodeId)
-		if err != nil {
-			continue
-		}
-		// 将不在同一个Rack的节点加入
-		if node.Rack.ID != localRack.ID {
-			nodes2 = append(nodes2, node.ID)
-		}
-	}
-	// 此时Rack完成了去重
+
+	// 4. 此时Store和Rack完成了去重
 	// 存留的元素可能有 1 2 3
-	//fmt.Println("Store和Rack去重后: ", nodes2)
 	switch len(nodes2) {
 	case 1:
 		reg := strategy.ReAllocate1(stores, &localNode)
@@ -122,21 +167,6 @@ func Check(stores []Store, region Region, strategy Strategy) Region {
 ERR:
 	fmt.Println(err)
 	return region
-}
-
-func main() {
-
-	// 1.初始化测试数据
-
-	// 2.初始化策略对象
-
-	// 3.从0进行3副本分配
-
-	// 4.随机生成一个副本分配情况进行检查
-
-
-	MockData()
-	//ProducMock()
 }
 
 func (stgy *Strategy) Allocate(stores []Store) (region *Region) {
@@ -174,9 +204,9 @@ func (stgy *Strategy) Allocate(stores []Store) (region *Region) {
 	// 保存当前节点对应的DC
 	localDc = localRack.Dc
 	// 当期DC不同Rack下的节点
-	otherRackNodes = OtherRackNodes(stores, localRack)
+	otherRackNodes = getORackNodes(stores, localRack)
 	// 不同DC下的节点
-	otherDcNodes = OtherDCNodes(stores, localDc)
+	otherDcNodes = getODcNodes(stores, localDc)
 
 	// 2.一个副本放在本地DC的不同Rock上
 	// 选择一个与当前节点在相同DC不同Rock的节点
@@ -200,9 +230,9 @@ func (stgy *Strategy) ReAllocate1(stores []Store, localNode *Store) (region *Reg
 	localDc := localRack.Dc
 
 	// 同一DC不同Rack的节点的集合
-	rackNodes := OtherRackNodes(stores, localRack)
+	rackNodes := getORackNodes(stores, localRack)
 	// 不同DC的节点集合
-	dcNodes := OtherDCNodes(stores, localDc)
+	dcNodes := getODcNodes(stores, localDc)
 	// 放置第二个副本
 	node := RandNode(rackNodes)
 	region.Replicas = append(region.Replicas, node.ID)
@@ -233,9 +263,9 @@ func (stgy *Strategy) ReAllocate2(stores []Store, nodes []int) (region *Region) 
 	otherNode, _ := stgy.FindNode(nodes[1])
 
 	// 初始化本地Dc不同Rack的节点
-	otherRackNodes = OtherRackNodes(stores, localRack)
+	otherRackNodes = getORackNodes(stores, localRack)
 	// 初始化其他Dc上的节点
-	otherDcNodes = OtherDCNodes(stores, localDc)
+	otherDcNodes = getODcNodes(stores, localDc)
 
 	if otherNode.Rack.Dc.ID == localDc.ID {
 		// 两个节点在同一DC下
@@ -299,22 +329,22 @@ func (stgy *Strategy) ReAllocate3(stores []Store, nodes []int) (region *Region) 
 
 	// 3节点Rack不重复 但是都在同一个Rack下
 	// 随机删除一个节点 重新分配
-	delId:=rd.Intn(len(nodes))
-	nodes2:=make([]int,0)
+	delId := rd.Intn(len(nodes))
+	nodes2 := make([]int, 0)
 	for key, value := range nodes {
-		if key==delId{
+		if key == delId {
 			continue
 		}
-		nodes2=append(nodes2,value)
+		nodes2 = append(nodes2, value)
 	}
 
 	// 转化成两节点分配问题
-	region=stgy.ReAllocate2(stores,nodes2)
+	region = stgy.ReAllocate2(stores, nodes2)
 	return
 }
 
-// 数组去重函数,对于重复的元素只保留一个
-func RemoveReptElem(arr []int) (newArr []int) {
+// 去重函数,去除重复的节点id,对于重复的元素只保留一个
+func (stgy *Strategy) RemoveReptElem(arr []int) (newArr []int) {
 	newArr = make([]int, 0)
 	for i := 0; i < len(arr); i++ {
 		repeat := false
@@ -331,6 +361,29 @@ func RemoveReptElem(arr []int) (newArr []int) {
 	return
 }
 
+//	根据Rack来进行去重 有Rack重复则只保留一个节点
+func (stgy *Strategy) RemoveReptRack(nodes []int) (res []int) {
+	rackBook := make(map[int]bool) // 对rack id标记 根据rack对节点进行去重
+	res = make([]int, 0)
+	// 遍历 store 根据rack进行去重
+	for _, nodeId := range nodes {
+		// 根据节点id 来查询节点
+		node, err := stgy.FindNode(nodeId)
+		if err != nil {
+			// 遇到错误说明节点可能不存在 则移除该节点
+			continue
+		}
+		// 遇到已经访问过的Rack上的节点则跳过
+		if _, ok := rackBook[node.Rack.ID]; ok {
+			continue
+		}
+		// 加入节点 标记rack
+		rackBook[node.Rack.ID] = true
+		res = append(res, node.ID)
+	}
+	return
+}
+
 func (stgy *Strategy) FindNode(id int) (node Store, err error) {
 	if node, ok := stgy.NodeMap[id]; ok {
 		return node, nil
@@ -338,18 +391,8 @@ func (stgy *Strategy) FindNode(id int) (node Store, err error) {
 	return node, errors.New("Node not found!")
 }
 
-// 根据Store的id在stores查找节点
-func FindNode(stores []Store, id int) (Store, error) {
-	for _, node := range stores {
-		if node.ID == id {
-			return node, nil
-		}
-	}
-	return Store{ID: -1}, errors.New("Can not find this node!")
-}
-
 // 获取与本地节点相同DC不同Rack的节点的集合
-func OtherRackNodes(stores []Store, rack *Rack) []Store {
+func getORackNodes(stores []Store, rack *Rack) []Store {
 	nodes := make([]Store, 0)
 	for i, n := 0, len(stores); i < n; i++ {
 		if stores[i].Rack.ID != rack.ID && stores[i].Rack.Dc.ID == rack.Dc.ID {
@@ -359,8 +402,16 @@ func OtherRackNodes(stores []Store, rack *Rack) []Store {
 	return nodes
 }
 
+// 打印节点分布情况
+func (stgy *Strategy)PrintRegion(region *Region){
+	for _,id:=range region.Replicas  {
+		node,_:=stgy.FindNode(id)
+		fmt.Printf("StoreId :%2d\tRackId :%2d\tDcId :%2d\n",node.ID,node.Rack.ID,node.Rack.Dc.ID)
+	}
+}
+
 // 获取与本地节点不同DC的节点的集合
-func OtherDCNodes(stores []Store, dc *DC) []Store {
+func getODcNodes(stores []Store, dc *DC) []Store {
 	nodes := make([]Store, 0)
 	for i, n := 0, len(stores); i < n; i++ {
 		if stores[i].Rack.Dc.ID != dc.ID {
@@ -376,51 +427,6 @@ func RandNode(stores []Store) Store {
 	lens := len(stores)
 	i := rd.Intn(lens)
 	return stores[i]
-}
-
-func ProducMock() {
-
-	Dc1 := DC{
-		ID:    1,
-		Name:  "shanghai",
-		Rocks: make([]Rack, 0),
-	}
-
-	Dc2 := DC{
-		ID:    1,
-		Name:  "shanghai",
-		Rocks: make([]Rack, 0),
-	}
-
-	for i := 0; i < 10; i++ {
-		rock := Rack{
-			ID:     i,
-			Name:   fmt.Sprintf("Rack%02d", i),
-			Stores: make([]Store, 0),
-		}
-		store := Store{ID: i, LocationLabels: []string{"hello", "world"}}
-		dcId := i % 2
-		if dcId == 0 {
-			rock.Stores = append(rock.Stores, store)
-			rock.Dc = &Dc1
-			Dc1.Rocks = append(Dc1.Rocks, rock)
-		} else {
-			rock.Stores = append(rock.Stores, store)
-			rock.Dc = &Dc2
-			Dc2.Rocks = append(Dc2.Rocks, rock)
-		}
-	}
-
-	//for _,v:=range Dc1.Rocks {
-	//	fmt.Println(v)
-	//}
-
-	bytes, err := json.Marshal(Dc1)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Println(string(bytes))
 }
 
 func MockData() (*MockJson, error) {
