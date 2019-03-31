@@ -1,5 +1,9 @@
 ### 分布式系统中3副本2DC放置策略
 
+[![GoDoc](https://godoc.org/github.com/sinksmell/region-allocation?status.svg)](https://godoc.org/github.com/sinksmell/region-allocation)
+
+
+
 **核心算法**
 
 * 1. 将一个副本存放在本地Rack的任意节点(如果没有指定本地Rack，则随机选一个) 

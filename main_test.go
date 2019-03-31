@@ -1,9 +1,9 @@
 package main
 
 import (
-	"testing"
 	"fmt"
 	"math/rand"
+	"testing"
 	"time"
 )
 
@@ -110,7 +110,7 @@ func TestCheck(t *testing.T) {
 func TestCheck2(t *testing.T) {
 	var arr = []int{3, 3, 3}
 	Init()
-	region:=Region{arr}
+	region := Region{arr}
 	fmt.Println("测试含有重复节点Region (3节点相同 AAA式) 的3副本重新分配")
 	fmt.Println("原始数据: ", arr)
 	strategy.PrintRegion(&region)
@@ -124,7 +124,7 @@ func TestCheck2(t *testing.T) {
 func TestCheck3(t *testing.T) {
 	var arr = []int{2, 3, 3}
 	Init()
-	region:=Region{arr}
+	region := Region{arr}
 	fmt.Println("测试含有重复节点Region (2同1异 ABB式)的3副本重新分配 去重后两副本在同一DC下(Rack不同)")
 	fmt.Println("原始数据: ", arr)
 	strategy.PrintRegion(&region)
@@ -137,7 +137,7 @@ func TestCheck3(t *testing.T) {
 // 测试含有重复节点Region (ABB式) 的3副本重新分配  去重后两副本在不同DC下 (Rack必定不同)
 func TestCheck4(t *testing.T) {
 	var arr = []int{1, 9, 9}
-	region:=Region{arr}
+	region := Region{arr}
 	Init()
 	fmt.Println("测试含有重复节点Region (ABB式) 的3副本重新分配 去重后两副本在不同DC下 (Rack必定不同)")
 	fmt.Println("原始数据: ", arr)
@@ -151,7 +151,7 @@ func TestCheck4(t *testing.T) {
 // 测试含有相同Rack的3副本重新分配  3副本都在同一Rack下
 func TestCheck5(t *testing.T) {
 	var arr = []int{0, 1, 2}
-	region:=Region{arr}
+	region := Region{arr}
 	Init()
 	fmt.Println("测试含有相同Rack的3副本重新分配  3副本都在同一Rack下")
 	fmt.Println("原始数据: ", arr)
@@ -165,7 +165,7 @@ func TestCheck5(t *testing.T) {
 // 测试含有相同Rack的3副本重新分配，去重后剩下两个节点在同一DC
 func TestCheck6(t *testing.T) {
 	var arr = []int{0, 2, 6}
-	region:=Region{arr}
+	region := Region{arr}
 	Init()
 	fmt.Println("测试含有相同Rack的3副本重新分配，去重后剩下两个节点在同一DC")
 	fmt.Println("原始数据: ", arr)
@@ -179,7 +179,7 @@ func TestCheck6(t *testing.T) {
 // 测试含有相同Rack的3副本重新分配，去重后剩下两个节点在不同一DC
 func TestCheck7(t *testing.T) {
 	var arr = []int{0, 2, 15}
-	region:=Region{arr}
+	region := Region{arr}
 	Init()
 	fmt.Println("测试含有相同Rack的3副本重新分配，去重后剩下两个节点在不同一DC")
 	fmt.Println("原始数据: ", arr)
@@ -193,7 +193,7 @@ func TestCheck7(t *testing.T) {
 // 不含有相同Rack但是都在同一Dc 的3副本重新分配
 func TestCheck8(t *testing.T) {
 	var arr = []int{0, 3, 6}
-	region:=Region{arr}
+	region := Region{arr}
 	Init()
 	fmt.Println("不含有相同Rack但是都在同一Dc 的3副本重新分配")
 	fmt.Println("原始数据: ", arr)
@@ -207,7 +207,7 @@ func TestCheck8(t *testing.T) {
 // 测试连续的3个节点id
 func TestCheck9(t *testing.T) {
 	var arr = []int{6, 8, 15}
-	region:=Region{arr}
+	region := Region{arr}
 	Init()
 	fmt.Println("测试连续的节点id上副本分配")
 	fmt.Println("原始数据: ", arr)
@@ -220,13 +220,13 @@ func TestCheck9(t *testing.T) {
 
 // 生成随机副本分配情况测试
 func TestCheck10(t *testing.T) {
-	rd:=rand.New(rand.NewSource(time.Now().UnixNano()))
+	rd := rand.New(rand.NewSource(time.Now().UnixNano()))
 	var arr = make([]int, 3)
 	Init()
 	for i := 0; i < len(arr); i++ {
 		arr[i] = rd.Intn(len(stores))
 	}
-	region:=Region{arr}
+	region := Region{arr}
 	fmt.Println("随机生成的待检测副本分布: ", region)
 	strategy.PrintRegion(&region)
 	region = Check(stores, region, *strategy)
@@ -237,7 +237,7 @@ func TestCheck10(t *testing.T) {
 // 测试合法副本分布
 func TestCheck11(t *testing.T) {
 	var arr = []int{0, 6, 15}
-	region:=Region{arr}
+	region := Region{arr}
 	Init()
 	fmt.Println("测试合法副本分布")
 	fmt.Println("原始数据: ", arr)

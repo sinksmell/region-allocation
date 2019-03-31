@@ -1,12 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"encoding/json"
+	"errors"
+	"fmt"
 	"io/ioutil"
 	"math/rand"
 	"time"
-	"errors"
 )
 
 // 从配置文件读取store分配情况
@@ -16,9 +16,9 @@ type MockJson struct {
 
 // 数据中心 DC 与 Rack 为一对多关系
 type DC struct {
-	ID    int     `json:"id"`
-	Name  string  `json:"name"`
-	Rocks [] Rack `json:"racks"`
+	ID    int    `json:"id"`
+	Name  string `json:"name"`
+	Rocks []Rack `json:"racks"`
 }
 
 // Rack 与DC为多对一
@@ -119,7 +119,7 @@ func Check(stores []Store, region Region, strategy Strategy) Region {
 		nodes2    []int // 去除重复Rack之后的节点集合
 		localNode Store
 		//localRack *Rack
-		err      error
+		err error
 	)
 	nodes = make([]int, 0)
 	nodes2 = make([]int, 0)
@@ -133,14 +133,14 @@ func Check(stores []Store, region Region, strategy Strategy) Region {
 	nodes = strategy.RemoveReptElem(region.Replicas)
 
 	// 3.节点不重复 但rack重复 对rack去重
-	nodes2=strategy.RemoveReptRack(nodes)
+	nodes2 = strategy.RemoveReptRack(nodes)
 
 	// 打印 去重之后的信息 查看是否正确去重
-/*	fmt.Println("Store和Rack去重后: ", nodes2)
-	for _, value := range nodes2 {
-		node, _ := strategy.FindNode(value)
-		fmt.Println(node.Rack.ID)
-	}*/
+	/*	fmt.Println("Store和Rack去重后: ", nodes2)
+		for _, value := range nodes2 {
+			node, _ := strategy.FindNode(value)
+			fmt.Println(node.Rack.ID)
+		}*/
 
 	// 选取第一个节点作为本地节点
 	if localNode, err = strategy.FindNode(nodes2[0]); err != nil {
@@ -403,10 +403,10 @@ func getORackNodes(stores []Store, rack *Rack) []Store {
 }
 
 // 打印节点分布情况
-func (stgy *Strategy)PrintRegion(region *Region){
-	for _,id:=range region.Replicas  {
-		node,_:=stgy.FindNode(id)
-		fmt.Printf("StoreId :%2d\tRackId :%2d\tDcId :%2d\n",node.ID,node.Rack.ID,node.Rack.Dc.ID)
+func (stgy *Strategy) PrintRegion(region *Region) {
+	for _, id := range region.Replicas {
+		node, _ := stgy.FindNode(id)
+		fmt.Printf("StoreId :%2d\tRackId :%2d\tDcId :%2d\n", node.ID, node.Rack.ID, node.Rack.Dc.ID)
 	}
 }
 
