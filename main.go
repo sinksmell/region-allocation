@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"math/rand"
 	"time"
-	"github.com/pkg/errors"
+	"errors"
 )
 
 // 从配置文件读取store分配情况
@@ -45,7 +45,7 @@ type Region struct {
 //
 type Strategy struct {
 	//TODO
-	Dcs     []DC
+	//Dcs     []DC
 	NodeMap map[int]Store // 为了方便地根据StoreId 查询对应的Store对象
 }
 
@@ -73,7 +73,7 @@ func Check(stores []Store, region Region, strategy Strategy) Region {
 	// 1. region还没有被分配 就尝试进行分配
 	if region.Replicas == nil || len(region.Replicas) == 0 {
 		//	return
-		reg := strategy.TryAllocate(stores)
+		reg := strategy.Allocate(stores)
 		return *reg
 	}
 
@@ -104,7 +104,7 @@ func Check(stores []Store, region Region, strategy Strategy) Region {
 	}
 	// 此时Rack完成了去重
 	// 存留的元素可能有 1 2 3
-	fmt.Println("Store和Rack去重后: ", nodes2)
+	//fmt.Println("Store和Rack去重后: ", nodes2)
 	switch len(nodes2) {
 	case 1:
 		reg := strategy.ReAllocate1(stores, &localNode)
@@ -125,11 +125,21 @@ ERR:
 }
 
 func main() {
+
+	// 1.初始化测试数据
+
+	// 2.初始化策略对象
+
+	// 3.从0进行3副本分配
+
+	// 4.随机生成一个副本分配情况进行检查
+
+
 	MockData()
 	//ProducMock()
 }
 
-func (stgy *Strategy) TryAllocate(stores []Store) (region *Region) {
+func (stgy *Strategy) Allocate(stores []Store) (region *Region) {
 
 	var (
 		lens           int
@@ -461,6 +471,6 @@ func PrintStores(data *MockJson) {
 				fmt.Printf("\t\t StoreId: %02d  belongto: RockID %02d\n", store.ID, store.Rack.ID)
 			}
 		}
-		fmt.Println(">--------<")
+		fmt.Println(">-------------------------------------------------<")
 	}
 }
