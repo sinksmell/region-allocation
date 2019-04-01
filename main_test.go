@@ -90,7 +90,7 @@ func TestRemoveReptElem(t *testing.T) {
 	fmt.Println("测试节点去重函数: ")
 	var arr = []int{0, 0, 0}
 	fmt.Println("原始数据: ", arr)
-	fmt.Println("节点去重后: ", strategy.RemoveReptElem(arr))
+	fmt.Println("节点去重后: ", strategy.RemoveReptNode(arr))
 	fmt.Println()
 }
 
@@ -206,7 +206,7 @@ func TestCheck8(t *testing.T) {
 
 // 测试连续的3个节点id
 func TestCheck9(t *testing.T) {
-	var arr = []int{6, 8, 15}
+	var arr = []int{8, 9, 10}
 	region := Region{arr}
 	Init()
 	fmt.Println("测试连续的节点id上副本分配")

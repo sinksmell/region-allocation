@@ -114,23 +114,22 @@ ERR:
 func Check(stores []Store, region Region, strategy Strategy) Region {
 
 	var (
-		//nums           = 3   // 节点数量
-		nodes     []int // 去重后的节点集合
-		nodes2    []int // 去除重复Rack之后的节点集合
-		localNode Store
-		//localRack *Rack
-		err error
+		nodes     []int   // 去重后的节点集合
+		nodes2    []int   // 去除重复Rack之后的节点集合
+		localNode Store   //本地节点
+		reg       *Region //重新分配后的策略
+		err       error
 	)
 	nodes = make([]int, 0)
 	nodes2 = make([]int, 0)
 	// 1. region还没有被分配 就尝试进行分配
 	if region.Replicas == nil || len(region.Replicas) == 0 {
 		//	return
-		reg := strategy.Allocate(stores)
+		reg = strategy.Allocate(stores)
 		return *reg
 	}
 	// 2. region中存在节点重复 对节点进行去重
-	nodes = strategy.RemoveReptElem(region.Replicas)
+	nodes = strategy.RemoveReptNode(region.Replicas)
 
 	// 3.节点不重复 但rack重复 对rack去重
 	nodes2 = strategy.RemoveReptRack(nodes)
@@ -152,17 +151,17 @@ func Check(stores []Store, region Region, strategy Strategy) Region {
 	// 存留的元素可能有 1 2 3
 	switch len(nodes2) {
 	case 1:
-		reg := strategy.ReAllocate1(stores, &localNode)
-		region = *reg
+		reg = strategy.ReAllocate1(stores, &localNode)
+
 	case 2:
-		reg := strategy.ReAllocate2(stores, nodes2)
-		region = *reg
+		reg = strategy.ReAllocate2(stores, nodes2)
+
 	case 3:
-		reg := strategy.ReAllocate3(stores, nodes2)
-		region = *reg
+		reg = strategy.ReAllocate3(stores, nodes2)
+
 	}
 
-	return region
+	return *reg
 
 ERR:
 	fmt.Println(err)
@@ -250,8 +249,8 @@ func (stgy *Strategy) ReAllocate2(stores []Store, nodes []int) (region *Region) 
 		localNode      Store
 		localRack      *Rack
 		localDc        *DC
-		otherRackNodes []Store
-		otherDcNodes   []Store
+		otherRackNodes []Store // 本地Dc的不同Rack下的节点
+		otherDcNodes   []Store // 其他Dc下的不同节点
 		node           Store
 	)
 
@@ -292,7 +291,9 @@ func (stgy *Strategy) ReAllocate2(stores []Store, nodes []int) (region *Region) 
 		nodes = append(nodes, node.ID)
 	}
 
-	return &Region{Replicas: nodes}
+	region = &Region{Replicas: nodes}
+
+	return
 }
 
 // 3个节点的情况下进行再次分配
@@ -344,7 +345,7 @@ func (stgy *Strategy) ReAllocate3(stores []Store, nodes []int) (region *Region) 
 }
 
 // 去重函数,去除重复的节点id,对于重复的元素只保留一个
-func (stgy *Strategy) RemoveReptElem(arr []int) (newArr []int) {
+func (stgy *Strategy) RemoveReptNode(arr []int) (newArr []int) {
 	newArr = make([]int, 0)
 	for i := 0; i < len(arr); i++ {
 		repeat := false
@@ -470,7 +471,7 @@ func MockData() (*MockJson, error) {
 // 打印各个节点信息
 func PrintStores(data *MockJson) {
 	for _, dc := range data.Dcs {
-		fmt.Printf("%02d %s RocksId: \n", dc.ID, dc.Name)
+		fmt.Printf("DcID: %02d %s RocksId: \n", dc.ID, dc.Name)
 		for _, rock := range dc.Rocks {
 			fmt.Printf("\t %d %s   Stores: \n", rock.ID, rock.Name)
 			for _, store := range rock.Stores {

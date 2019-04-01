@@ -56,10 +56,11 @@
     <session id="1282065882">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="5" />
+          <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.2" value="3" />
-          <entry key="project.opened" value="5" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -76,13 +77,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="go" value="7641" />
+          <entry key="go" value="7746" />
           <entry key="json" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Go" value="7641" />
+          <entry key="Go" value="7746" />
           <entry key="JSON" value="2" />
         </counts>
       </usages-collector>
@@ -98,11 +99,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="59" column="5" lean-forward="true" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
+            <state relative-caret-position="72">
+              <caret line="245" column="80" selection-start-line="245" selection-start-column="80" selection-end-line="245" selection-end-column="80" />
               <folding>
+                <element signature="n#!!block;n#main#1" />
+                <element signature="n#!!block;n#Allocate#0" />
+                <element signature="n#!!block;n#ReAllocate1#0" />
+                <element signature="n#!!block;n#ReAllocate2#0" />
+                <element signature="n#!!block;n#ReAllocate3#0" />
+                <element signature="n#!!block;n#RemoveReptElem#0" />
+                <element signature="n#!!block;n#RemoveReptRack#0" />
+                <element signature="n#!!block;n#FindNode#0" />
+                <element signature="n#!!block;n#getORackNodes#0" />
                 <element signature="n#!!block;n#PrintRegion#0" />
-                <element signature="n#!!block;n#OtherDCNodes#0" />
+                <element signature="n#!!block;n#getODcNodes#0" />
                 <element signature="n#!!block;n#RandNode#0" />
                 <element signature="n#!!block;n#MockData#0" />
                 <element signature="n#!!block;n#PrintStores#0" />
@@ -114,11 +124,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="246" column="33" selection-start-line="246" selection-start-column="33" selection-end-line="246" selection-end-column="33" />
-              <folding>
-                <element signature="e#14#42#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="2547">
+              <caret line="208" column="29" lean-forward="true" selection-start-line="208" selection-start-column="29" selection-end-line="208" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -126,9 +133,9 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mock.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="92" column="16" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="16" />
+            <state>
               <folding>
+                <element signature="e#0#3360#1" />
                 <element signature="e#75#1673#0" />
               </folding>
             </state>
@@ -174,10 +181,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="23" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="y" value="49" />
     <option name="width" value="1600" />
-    <option name="height" value="826" />
+    <option name="height" value="824" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -187,6 +194,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -207,7 +215,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -230,7 +237,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.go build main.go">
+  <component name="RunManager" selected="Go Test.TestCheck9 in github.com/sinksmell/region-allocation">
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="PingCAP" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -298,21 +305,15 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestCheck9 in github.com/sinksmell/region-allocation" />
         <item itemvalue="Go Build.go build main.go" />
         <item itemvalue="Go Test.TestCheck10 in github.com/sinksmell/region-allocation" />
         <item itemvalue="Go Test.TestCheck11 in github.com/sinksmell/region-allocation" />
-        <item itemvalue="Go Test.TestCheck9 in github.com/sinksmell/region-allocation" />
         <item itemvalue="Go Test.TestMockData in github.com/sinksmell/region-allocation" />
       </list>
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="TestCheck11_in_github_com_sinksmell_region-allocation - 2019.03.31 at 16h 03m 29s.xml">
-      <configuration name="TestCheck11 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestCheck10_in_github_com_sinksmell_region-allocation - 2019.03.31 at 16h 03m 36s.xml">
-      <configuration name="TestCheck10 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
-    </history-entry>
     <history-entry file="TestCheck10_in_github_com_sinksmell_region-allocation - 2019.03.31 at 16h 03m 45s.xml">
       <configuration name="TestCheck10 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
     </history-entry>
@@ -337,23 +338,29 @@
     <history-entry file="TestCheck10_in_github_com_sinksmell_region-allocation - 2019.03.31 at 16h 05m 43s.xml">
       <configuration name="TestCheck10 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
     </history-entry>
+    <history-entry file="TestCheck9_in_github_com_sinksmell_region-allocation - 2019.04.01 at 16h 10m 14s.xml">
+      <configuration name="TestCheck9 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestCheck9_in_github_com_sinksmell_region-allocation - 2019.04.01 at 16h 10m 36s.xml">
+      <configuration name="TestCheck9 in github.com/sinksmell/region-allocation" configurationId="GoTestRunConfiguration" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1600" height="824" extended-state="6" />
+    <frame x="0" y="0" width="1600" height="900" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.0626615" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.063307494" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32799014" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.8597475" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.96054256" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.6690042" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.6683107" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -384,18 +391,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/common.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/common.go" />
     <entry file="file://$PROJECT_DIR$/mock.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="92" column="16" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="16" />
+        <state>
           <folding>
+            <element signature="e#0#3360#1" />
             <element signature="e#75#1673#0" />
           </folding>
         </state>
@@ -403,21 +404,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="246" column="33" selection-start-line="246" selection-start-column="33" selection-end-line="246" selection-end-column="33" />
-          <folding>
-            <element signature="e#14#42#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="2547">
+          <caret line="208" column="29" lean-forward="true" selection-start-line="208" selection-start-column="29" selection-end-line="208" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="59" column="5" lean-forward="true" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
+        <state relative-caret-position="72">
+          <caret line="245" column="80" selection-start-line="245" selection-start-column="80" selection-end-line="245" selection-end-column="80" />
           <folding>
+            <element signature="n#!!block;n#main#1" />
+            <element signature="n#!!block;n#Allocate#0" />
+            <element signature="n#!!block;n#ReAllocate1#0" />
+            <element signature="n#!!block;n#ReAllocate2#0" />
+            <element signature="n#!!block;n#ReAllocate3#0" />
+            <element signature="n#!!block;n#RemoveReptElem#0" />
+            <element signature="n#!!block;n#RemoveReptRack#0" />
+            <element signature="n#!!block;n#FindNode#0" />
+            <element signature="n#!!block;n#getORackNodes#0" />
             <element signature="n#!!block;n#PrintRegion#0" />
-            <element signature="n#!!block;n#OtherDCNodes#0" />
+            <element signature="n#!!block;n#getODcNodes#0" />
             <element signature="n#!!block;n#RandNode#0" />
             <element signature="n#!!block;n#MockData#0" />
             <element signature="n#!!block;n#PrintStores#0" />
